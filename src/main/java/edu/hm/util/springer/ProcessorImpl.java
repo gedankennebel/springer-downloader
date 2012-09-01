@@ -46,16 +46,6 @@ public class ProcessorImpl implements Processor {
         }
     }
 
-    private void shutdown() {
-        executorService.shutdown();
-        try {
-            executorService.awaitTermination(5, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        pdfDownloader.shutdown();
-    }
-
     private void processBatchDownload(String isbn) throws IOException {
         String url = springerProperties.getBookUrlByIsbn(isbn);
 
@@ -75,6 +65,16 @@ public class ProcessorImpl implements Processor {
             String fileName = bookExporter.getFileName(book.getTitle(), chapter);
             chapter.setPdf(SpringerFileUtils.readFilenameToByteArrayOrNull(fileName));
         }
+    }
+
+    private void shutdown() {
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(10, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        pdfDownloader.shutdown();
     }
 
 

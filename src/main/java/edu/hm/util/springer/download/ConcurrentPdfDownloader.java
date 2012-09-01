@@ -15,17 +15,22 @@ import java.util.logging.Logger;
 
 public class ConcurrentPdfDownloader implements PdfDownloader {
 
-    @Inject
     private URLToInputStreamResolver urlToInputStreamResolver;
-    @Inject
     private Logger log;
-    @Inject
     private SpringerProperties springerProperties;
     private ExecutorService executorService;
 
+    @Inject
+    public ConcurrentPdfDownloader(URLToInputStreamResolver urlToInputStreamResolver, Logger log, SpringerProperties springerProperties) {
+        this.urlToInputStreamResolver = urlToInputStreamResolver;
+        this.log = log;
+        this.springerProperties = springerProperties;
+        this.executorService = Executors.newFixedThreadPool(springerProperties.getMaxConcurrentPdfDownloads());
+    }
+
     @Override
     public void downloadPdfs(Book book) {
-        executorService = Executors.newFixedThreadPool(springerProperties.getMaxConcurrentPdfDownloads());
+
         for (final Chapter chapter : book.getChapters()) {
             downloadPdfForChapter(chapter);
         }
