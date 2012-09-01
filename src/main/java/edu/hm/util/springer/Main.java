@@ -22,7 +22,7 @@ public class Main {
 
     private static void printInfo() {
         System.out.println("###################################################");
-        System.out.println("## springer-downloader 1.0                       ##");
+        System.out.println("## springer-downloader 1.0.1                     ##");
         System.out.println("## Batch download all chapters of multiple books ##");
         System.out.println("###################################################");
         System.out.println();

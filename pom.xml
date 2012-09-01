@@ -6,7 +6,7 @@
 
     <groupId>edu.hm.util.springer</groupId>
     <artifactId>springer-downloader</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
